@@ -26,8 +26,7 @@ if ($userId) {
 $statistik = [
     'total_user' => count($userList),
     'total_admin' => count(array_filter($userList, function($user) { return $user['role'] == 'admin'; })),
-    'total_user1' => count(array_filter($userList, function($user) { return $user['role'] == 'user1'; })),
-    'total_user2' => count(array_filter($userList, function($user) { return $user['role'] == 'user2'; }))
+    'total_user' => count(array_filter($userList, function($user) { return $user['role'] == 'user'; }))
 ];
 
 
@@ -76,11 +75,9 @@ $pdf->Ln();
 $pdf->Cell(70, 7, 'Total Admin', 1);
 $pdf->Cell(0, 7, $statistik['total_admin'], 1);
 $pdf->Ln();
-$pdf->Cell(70, 7, 'Total User Level 1', 1);
-$pdf->Cell(0, 7, $statistik['total_user1'], 1);
+$pdf->Cell(70, 7, 'Total User Level ', 1);
+$pdf->Cell(0, 7, $statistik['total_user'], 1);
 $pdf->Ln();
-$pdf->Cell(70, 7, 'Total User Level 2', 1);
-$pdf->Cell(0, 7, $statistik['total_user2'], 1);
 
 
 // Tabel Data User

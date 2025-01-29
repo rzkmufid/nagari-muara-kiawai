@@ -73,8 +73,8 @@ ob_start(); // Start output buffering
                 <label class="form-label">Role</label>
                 <select class="form-control" name="role" required>
                     <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
-                    <option value="user1" <?= $user['role'] == 'user1' ? 'selected' : '' ?>>User1</option>
-                    <option value="user2" <?= $user['role'] == 'user2' ? 'selected' : '' ?>>User2</option>
+                    <option value="user" <?= $user['role'] == 'user' ? 'selected' : '' ?>>User</option>
+                    <option value="wali_nagari" <?= $user['role'] == 'wali_nagari' ? 'selected' : '' ?>>Wali Nagari</option>
                 </select>
             </div>
             

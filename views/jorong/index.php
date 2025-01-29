@@ -4,6 +4,12 @@ require_once __DIR__ . '/../../models/Jorong.php';
 
 // Inisialisasi model
 $jorongModel = new Jorong();
+function startSessionIfNotStarted() {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+startSessionIfNotStarted();
 
 
 // Proses delete jika ada parameter
@@ -37,9 +43,13 @@ ob_start(); // Start output buffering
                         <i class="fas fa-map-marker-alt me-2"></i> Data Jorong
                     </h3>
                     <div class="btn-group" role="group">
+                        <?php
+                            if ($_SESSION['user_role'] !== 'wali_nagari') {
+                        ?>
                         <a href="tambah.php" class="btn btn-light btn-sm">
                             <i class="fas fa-plus me-1"></i> Tambah Jorong
                         </a>
+                        <?php } ?>
                         <button id="cetakLaporan" class="btn btn-light btn-sm">
                             <i class="fas fa-print me-1"></i> Cetak Laporan
                         </button>
@@ -104,7 +114,11 @@ ob_start(); // Start output buffering
                                     <th>Kepala Jorong</th>
                                     <th>Luas Wilayah (Ha)</th>
                                     <th>Jumlah KK</th>
+                                    <?php
+                                        if ($_SESSION['user_role'] !== 'wali_nagari') {
+                                    ?>
                                     <th class="text-center">Aksi</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -115,6 +129,9 @@ ob_start(); // Start output buffering
                                     <td><?= $jorong['kepala_jorong'] ?></td>
                                     <td><?= $jorong['luas_wilayah'] ?></td>
                                     <td><?= $jorong['jumlah_kk'] ?></td>
+                                    <?php
+                                        if ($_SESSION['user_role'] !== 'wali_nagari') {
+                                    ?>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
                                             <a href="edit.php?id=<?= $jorong['id'] ?>" class="btn btn-warning btn-sm">
@@ -127,6 +144,7 @@ ob_start(); // Start output buffering
                                             </a>
                                         </div>
                                     </td>
+                                    <?php } ?>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>

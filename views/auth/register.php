@@ -20,8 +20,7 @@ ob_start();
             <label class="form-label">Role</label>
             <select class="form-control" name="role" required>
                 <option value="admin">Admin</option>
-                <option value="user1">User1</option>
-                <option value="user2">User2</option>
+                <option value="user">User</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Register</button>

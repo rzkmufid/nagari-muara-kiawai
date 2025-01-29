@@ -50,8 +50,11 @@ $statistik = [
     'total_admin' => count(array_filter($userList, function($user) {
         return $user['role'] == 'admin';
     })),
-    'total_user1' => count(array_filter($userList, function($user) {
-        return $user['role'] == 'user1';
+    'total_user' => count(array_filter($userList, function($user) {
+        return $user['role'] == 'user';
+    })),
+    'total_waliNagari' => count(array_filter($userList, function($user) {
+        return $user['role'] == 'wali_nagari';
     }))
 ];
 
@@ -115,11 +118,11 @@ ob_start(); // Start output buffering
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h5 class="card-title mb-0">
-                                            <i class="fas fa-user me-2 text-warning"></i>Total User Biasa
+                                            <i class="fas fa-user me-2 text-warning"></i>Total Wali Nagari
                                         </h5>
                                     </div>
                                     <p class="card-text display-6 text-warning mb-0">
-                                        <?= $statistik['total_user1'] ?>
+                                        <?= $statistik['total_waliNagari'] ?>
                                     </p>
                                 </div>
                             </div>
@@ -167,11 +170,11 @@ ob_start(); // Start output buffering
                                             case 'admin':
                                                 echo '<span class="badge bg-success">Admin</span>';
                                                 break;
-                                            case 'user1':
-                                                echo '<span class="badge bg-primary">User 1</span>';
+                                            case 'wali_nagari':
+                                                echo '<span class="badge bg-primary">Wali Nagari</span>';
                                                 break;
-                                            case 'user2':
-                                                echo '<span class="badge bg-warning">User 2</span>';
+                                            case 'user':
+                                                echo '<span class="badge bg-primary">User</span>';
                                                 break;
                                             default:
                                                 echo '<span class="badge bg-secondary">Tidak Dikenal</span>';

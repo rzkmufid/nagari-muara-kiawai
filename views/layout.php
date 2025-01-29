@@ -217,6 +217,13 @@ if (in_array($pageTitle, ["Manajemen User", "Edit User"])) {
                                         <i></i>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= strpos($_SERVER['PHP_SELF'], 'history.php') ? 'active' : '' ?>"
+                                        href="/nagari-muara-kiawai/views/penduduk/history.php">
+                                        <span><i class="fas fa-history me-2"></i> History</span>
+                                        <i></i>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

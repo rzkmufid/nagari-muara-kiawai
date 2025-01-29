@@ -63,6 +63,44 @@ class Penduduk
             return false;
         }
     }
+
+    public function createHistory($data) {
+        // Validasi NIK unik
+    
+        $query = "INSERT INTO history 
+                  (nama, nik, jenis_kelamin, umur, pekerjaan, jorong) 
+                  VALUES (:nama, :nik, :jenis_kelamin, :umur, :pekerjaan, :jorong)";
+    
+    
+        try {
+            $stmt = $this->conn->prepare($query);
+    
+    
+            // Sanitasi data
+            $nama = htmlspecialchars(strip_tags($data['nama']));
+            $nik = htmlspecialchars(strip_tags($data['nik']));
+            $jenis_kelamin = htmlspecialchars(strip_tags($data['jenis_kelamin']));
+            $umur = intval($data['umur']);
+            $pekerjaan = htmlspecialchars(strip_tags($data['pekerjaan']));
+            $jorong = htmlspecialchars(strip_tags($data['jorong']));
+    
+    
+            // Bind parameter
+            $stmt->bindParam(":nama", $nama);
+            $stmt->bindParam(":nik", $nik);
+            $stmt->bindParam(":jenis_kelamin", $jenis_kelamin);
+            $stmt->bindParam(":umur", $umur);
+            $stmt->bindParam(":pekerjaan", $pekerjaan);
+            $stmt->bindParam(":jorong", $jorong);
+    
+    
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Log error untuk debugging
+            error_log("Error creating penduduk: " . $e->getMessage());
+            return false;
+        }
+    }
     
     
     // Method tambahan untuk memeriksa NIK yang sudah ada
@@ -84,6 +122,14 @@ class Penduduk
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function readHistory()
+    {
+        $query = "SELECT * FROM history ORDER BY id ASC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     // Read Single
     public function readOne($id)
@@ -99,6 +145,14 @@ class Penduduk
     // Update
     public function update($id, $data)
     {
+        $getData = $this->readOne($id);
+        $filtered = array_diff_key($getData, array_flip(['id', 'created_at']));
+
+        if ($filtered !== $data) {
+            $this->createHistory($filtered);
+        }
+
+
         $query = "UPDATE " . $this->table_name . " 
                   SET nama=:nama, nik=:nik, jenis_kelamin=:jenis_kelamin, 
                       umur=:umur, pekerjaan=:pekerjaan, jorong=:jorong 
@@ -360,4 +414,6 @@ class Penduduk
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    
 }

@@ -39,11 +39,11 @@ ob_start(); // Start output buffering
                 <label class="form-label">Role</label>
                 <select class="form-control" name="role" required>
                     <option value="admin">Admin</option>
-                    <option value="user1">User1</option>
-                    <option value="user2">User2</option>
+                    <option value="wali_nagari">Wali Nagari</option>
+                    <option value="user">User</option>
                 </select>
             </div>
-            <a href="user_management.php" class="btn btn-secondary">Kembali</a>
+            <a href="index.php" class="btn btn-secondary">Kembali</a>
             <button type="submit" class="btn btn-primary">Tambah User</button>
         </form>
     </div>

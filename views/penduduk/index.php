@@ -1,6 +1,12 @@
 <?php
 require_once __DIR__ . '/../../models/Penduduk.php';
 
+function startSessionIfNotStarted() {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+startSessionIfNotStarted();
 
 // Inisialisasi model
 $pendudukModel = new Penduduk();
@@ -60,9 +66,13 @@ ob_start(); // Start output buffering
                         <h3 class="mb-0">Data Penduduk 2025</h3>
                     </div>
                     <div class="btn-group" role="group">
+                        <?php
+                            if ($_SESSION['user_role'] !== 'wali_nagari') {
+                        ?>
                         <a href="tambah.php" class="btn btn-light btn-sm">
                             <i class="fas fa-plus me-1"></i> Tambah Penduduk
                         </a>
+                        <?php } ?>
                         <button id="cetakLaporan" class="btn btn-light btn-sm">
                             <i class="fas fa-print me-1"></i> Cetak Laporan
                         </button>
@@ -147,7 +157,11 @@ ob_start(); // Start output buffering
                                     <th>Umur</th>
                                     <th>Pekerjaan</th>
                                     <th>Jorong</th>
+                                    <?php
+                                        if ($_SESSION['user_role'] !== 'wali_nagari') {
+                                    ?>
                                     <th class="text-center">Aksi</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,6 +174,9 @@ ob_start(); // Start output buffering
                                         <td><?= $penduduk['umur'] ?></td>
                                         <td><?= $penduduk['pekerjaan'] ?></td>
                                         <td><?= $penduduk['jorong'] ?></td>
+                                        <?php
+                                            if ($_SESSION['user_role'] !== 'wali_nagari') {
+                                        ?>
                                         <td class="text-center">
                                             <div class="btn-group gap-2" role="group">
                                                 <a href="edit.php?id=<?= $penduduk['id'] ?>" class="btn btn-outline-warning btn-sm rounded-circle">
@@ -170,6 +187,7 @@ ob_start(); // Start output buffering
                                                 </a>
                                             </div>
                                         </td>
+                                        <?php } ?>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

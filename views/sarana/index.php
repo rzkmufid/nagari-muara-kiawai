@@ -1,6 +1,11 @@
     <?php
     require_once __DIR__ . '/../../models/Sarana.php';
-
+    function startSessionIfNotStarted() {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    }
+    startSessionIfNotStarted();
 
     // Inisialisasi model
     $saranaModel = new Sarana();
@@ -33,9 +38,13 @@
                             <i class="fas fa-building me-2"></i> Data Sarana dan Prasarana
                         </h3>
                         <div class="btn-group" role="group">
-                            <a href="tambah.php" class="btn btn-light btn-sm">
-                                <i class="fas fa-plus me-1"></i> Tambah Sarana
-                            </a>
+                            <?php
+                                if ($_SESSION['user_role'] !== 'wali_nagari') {
+                            ?>
+                                <a href="tambah.php" class="btn btn-light btn-sm">
+                                    <i class="fas fa-plus me-1"></i> Tambah Sarana
+                                </a>
+                            <?php } ?>
                             <button id="cetakLaporan" class="btn btn-light btn-sm">
                                 <i class="fas fa-print me-1"></i> Cetak Laporan
                             </button>
@@ -100,7 +109,11 @@
                                         <th>Jumlah</th>
                                         <th>Kondisi</th>
                                         <th>Keterangan</th>
+                                        <?php
+                                            if ($_SESSION['user_role'] !== 'wali_nagari') {
+                                        ?>
                                         <th class="text-center">Aksi</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,6 +130,9 @@
                                             </span>
                                         </td>
                                         <td><?= $sarana['keterangan'] ?></td>
+                                        <?php
+                                            if ($_SESSION['user_role'] !== 'wali_nagari') {
+                                        ?>
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
                                                 <a href="edit.php?id=<?= $sarana['id'] ?>" class="btn btn-warning btn-sm">
@@ -129,6 +145,7 @@
                                                 </a>
                                             </div>
                                         </td>
+                                        <?php } ?>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
