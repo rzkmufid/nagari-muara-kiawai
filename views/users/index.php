@@ -30,7 +30,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
     // Pastikan tidak menghapus akun admin yang sedang login
     if ($id != $_SESSION['user_id']) {
         $userModel->deleteUser($id);
-        $_SESSION['success_message'] = "User berhasil dihapus.";
+        $_SESSION['success_message'] = "Data berhasil dihapus.";
     } else {
         $_SESSION['error_message'] = "Tidak dapat menghapus akun sendiri.";
     }

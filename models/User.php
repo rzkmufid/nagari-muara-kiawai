@@ -73,7 +73,7 @@ class User
             }
 
             // Jika user_id adalah admin, maka tidak bisa menghapus akun sendiri
-            if ($this->isAdmin($user_id)) {
+            if ($_SESSION['user_id'] == $user_id) {
                 return false;
             }
 
