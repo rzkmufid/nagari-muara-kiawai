@@ -24,6 +24,7 @@
     $saranaList = $saranaModel->readAll();
 
 
+
     $pageTitle = "Data Sarana dan Prasarana";
     ob_start(); // Start output buffering
     ?>
@@ -73,11 +74,11 @@
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div>
                                             <h5 class="card-title mb-0">
-                                                <i class="fas fa-exclamation-triangle me-2 text-warning"></i>Sarana Rusak Ringan
+                                                <i class="fas fa-exclamation-triangle me-2 text-warning"></i>Sarana Kurang Baik
                                             </h5>
                                         </div>
                                         <p class="card-text display-6 text-warning mb-0">
-                                            <?= count(array_filter($saranaList, function($s) { return $s['kondisi'] == 'Rusak Ringan'; })) ?>
+                                            <?= count(array_filter($saranaList, function($s) { return $s['kondisi'] == 'Kurang Baik'; })) ?>
                                         </p>
                                     </div>
                                 </div>
@@ -91,7 +92,7 @@
                                             </h5>
                                         </div>
                                         <p class="card-text display-6 text-danger mb-0">
-                                            <?= count(array_filter($saranaList, function($s) { return $s['kondisi'] == 'Rusak Berat'; })) ?>
+                                            <?= count(array_filter($saranaList, function($s) { return $s['kondisi'] == 'Rusak'; })) ?>
                                         </p>
                                     </div>
                                 </div>
@@ -125,7 +126,7 @@
                                         <td>
                                             <span class="badge 
                                                 <?= $sarana['kondisi'] == 'Baik' ? 'bg-success' : 
-                                                ($sarana['kondisi'] == 'Rusak Ringan' ? 'bg-warning' : 'bg-danger') ?>">
+                                                ($sarana['kondisi'] == 'Kurang Baik' ? 'bg-warning' : 'bg-danger') ?>">
                                                 <?= $sarana['kondisi'] ?>
                                             </span>
                                         </td>
