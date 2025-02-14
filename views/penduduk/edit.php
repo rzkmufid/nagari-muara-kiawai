@@ -47,7 +47,7 @@ ob_start(); // Start output buffering
         </div>
         <div class="mb-3">
             <label class="form-label">NIK</label>
-            <input type="text" class="form-control" name="nik" value="<?= htmlspecialchars($penduduk['nik']) ?>" required>
+            <input type="number" class="form-control" name="nik" value="<?= htmlspecialchars($penduduk['nik']) ?>" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Jenis Kelamin</label>
@@ -57,8 +57,12 @@ ob_start(); // Start output buffering
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Umur</label>
-            <input type="number" class="form-control" name="umur" value="<?= $penduduk['umur'] ?>" required>
+            <label class="form-label">Tempat Lahir</label>
+            <input type="text" class="form-control" name="tempat_lahir" value="<?= htmlspecialchars($penduduk['tempat_lahir']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tanggal Lahir</label>
+            <input type="date" class="form-control" name="tanggal_lahir" value="<?= htmlspecialchars($penduduk['tanggal_lahir']) ?>" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Pekerjaan</label>

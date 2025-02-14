@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'nama' => $_POST['nama'],
         'nik' => $_POST['nik'],
         'jenis_kelamin' => $_POST['jenis_kelamin'],
-        'umur' => $_POST['umur'],
+        'tempat_lahir' => $_POST['tempat_lahir'],
+        'tanggal_lahir' => $_POST['tanggal_lahir'],
         'pekerjaan' => $_POST['pekerjaan'],
         'jorong' => $_POST['jorong'],
     ];

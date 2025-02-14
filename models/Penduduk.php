@@ -22,39 +22,35 @@ class Penduduk
             return false;
         }
     
-    
         // Validasi panjang NIK
         if (strlen($data['nik']) > 16) {
             return false;
         }
     
-    
         $query = "INSERT INTO " . $this->table_name . " 
-                  (nama, nik, jenis_kelamin, umur, pekerjaan, jorong) 
-                  VALUES (:nama, :nik, :jenis_kelamin, :umur, :pekerjaan, :jorong)";
-    
+                  (nama, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, pekerjaan, jorong) 
+                  VALUES (:nama, :nik, :jenis_kelamin, :tempat_lahir, :tanggal_lahir, :pekerjaan, :jorong)";
     
         try {
             $stmt = $this->conn->prepare($query);
-    
     
             // Sanitasi data
             $nama = htmlspecialchars(strip_tags($data['nama']));
             $nik = htmlspecialchars(strip_tags($data['nik']));
             $jenis_kelamin = htmlspecialchars(strip_tags($data['jenis_kelamin']));
-            $umur = intval($data['umur']);
+            $tempat_lahir = htmlspecialchars(strip_tags($data['tempat_lahir']));
+            $tanggal_lahir = htmlspecialchars(strip_tags($data['tanggal_lahir']));
             $pekerjaan = htmlspecialchars(strip_tags($data['pekerjaan']));
             $jorong = htmlspecialchars(strip_tags($data['jorong']));
-    
     
             // Bind parameter
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":nik", $nik);
             $stmt->bindParam(":jenis_kelamin", $jenis_kelamin);
-            $stmt->bindParam(":umur", $umur);
+            $stmt->bindParam(":tempat_lahir", $tempat_lahir);
+            $stmt->bindParam(":tanggal_lahir", $tanggal_lahir);
             $stmt->bindParam(":pekerjaan", $pekerjaan);
             $stmt->bindParam(":jorong", $jorong);
-    
     
             return $stmt->execute();
         } catch (PDOException $e) {
@@ -68,8 +64,8 @@ class Penduduk
         // Validasi NIK unik
     
         $query = "INSERT INTO history 
-                  (nama, nik, jenis_kelamin, umur, pekerjaan, jorong) 
-                  VALUES (:nama, :nik, :jenis_kelamin, :umur, :pekerjaan, :jorong)";
+                  (nama, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, pekerjaan, jorong) 
+                  VALUES (:nama, :nik, :jenis_kelamin, :tempat_lahir, :tanggal_lahir, :pekerjaan, :jorong)";
     
     
         try {
@@ -80,7 +76,8 @@ class Penduduk
             $nama = htmlspecialchars(strip_tags($data['nama']));
             $nik = htmlspecialchars(strip_tags($data['nik']));
             $jenis_kelamin = htmlspecialchars(strip_tags($data['jenis_kelamin']));
-            $umur = intval($data['umur']);
+            $tempat_lahir = htmlspecialchars(strip_tags($data['tempat_lahir']));
+            $tanggal_lahir = htmlspecialchars(strip_tags($data['tanggal_lahir']));
             $pekerjaan = htmlspecialchars(strip_tags($data['pekerjaan']));
             $jorong = htmlspecialchars(strip_tags($data['jorong']));
     
@@ -89,7 +86,8 @@ class Penduduk
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":nik", $nik);
             $stmt->bindParam(":jenis_kelamin", $jenis_kelamin);
-            $stmt->bindParam(":umur", $umur);
+            $stmt->bindParam(":tempat_lahir", $tempat_lahir);
+            $stmt->bindParam(":tanggal_lahir", $tanggal_lahir);
             $stmt->bindParam(":pekerjaan", $pekerjaan);
             $stmt->bindParam(":jorong", $jorong);
     
@@ -155,7 +153,7 @@ class Penduduk
 
         $query = "UPDATE " . $this->table_name . " 
                   SET nama=:nama, nik=:nik, jenis_kelamin=:jenis_kelamin, 
-                      umur=:umur, pekerjaan=:pekerjaan, jorong=:jorong 
+                      tempat_lahir=:tempat_lahir, tanggal_lahir=:tanggal_lahir, pekerjaan=:pekerjaan, jorong=:jorong 
                   WHERE id = :id";
 
         $stmt = $this->conn->prepare($query);
@@ -165,7 +163,8 @@ class Penduduk
         $nama = htmlspecialchars(strip_tags($data['nama']));
         $nik = htmlspecialchars(strip_tags($data['nik']));
         $jenis_kelamin = htmlspecialchars(strip_tags($data['jenis_kelamin']));
-        $umur = intval($data['umur']);
+        $tempat_lahir = htmlspecialchars(strip_tags($data['tempat_lahir']));
+        $tanggal_lahir = htmlspecialchars(strip_tags($data['tanggal_lahir']));
         $pekerjaan = htmlspecialchars(strip_tags($data['pekerjaan']));
         $jorong = htmlspecialchars(strip_tags($data['jorong']));
 
@@ -175,7 +174,8 @@ class Penduduk
         $stmt->bindParam(":nama", $nama);
         $stmt->bindParam(":nik", $nik);
         $stmt->bindParam(":jenis_kelamin", $jenis_kelamin);
-        $stmt->bindParam(":umur", $umur);
+        $stmt->bindParam(":tempat_lahir", $tempat_lahir);
+        $stmt->bindParam(":tanggal_lahir", $tanggal_lahir);
         $stmt->bindParam(":pekerjaan", $pekerjaan);
         $stmt->bindParam(":jorong", $jorong);
 
@@ -261,13 +261,13 @@ class Penduduk
     {
         if ($golongan_umur == "Diatas 74") {
             $query = "SELECT * FROM " . $this->table_name . " 
-                      WHERE umur > 74
-                      ORDER BY nama DESC";
+                      WHERE YEAR(CURDATE()) - YEAR(tanggal_lahir) > 74
+                      ORDER BY tempat_lahir DESC";
         } else {
             list($age_min, $age_max) = explode("-", $golongan_umur);
             $query = "SELECT * FROM " . $this->table_name . " 
-                      WHERE umur BETWEEN :age_min AND :age_max 
-                      ORDER BY nama DESC";
+                      WHERE YEAR(CURDATE()) - YEAR(tanggal_lahir) BETWEEN :age_min AND :age_max 
+                      ORDER BY tempat_lahir DESC";
         }
 
         $stmt = $this->conn->prepare($query);
@@ -303,15 +303,22 @@ class Penduduk
         $params = [];
 
 
-        // Filter berdasarkan umur
-        if (isset($filters['umur_min']) && $filters['umur_min'] !== '') {
-            $query .= " AND umur >= :umur_min";
-            $params[':umur_min'] = intval($filters['umur_min']);
+        // Filter berdasarkan tanggal_lahir
+        if (isset($filters['tanggal_lahir_min']) && $filters['tanggal_lahir_min'] !== '') {
+            $query .= " AND tanggal_lahir >= :tanggal_lahir_min";
+            $params[':tanggal_lahir_min'] = $filters['tanggal_lahir_min'];
         }
 
-        if (isset($filters['umur_max']) && $filters['umur_max'] !== '') {
-            $query .= " AND umur <= :umur_max";
-            $params[':umur_max'] = intval($filters['umur_max']);
+        if (isset($filters['tanggal_lahir_max']) && $filters['tanggal_lahir_max'] !== '') {
+            $query .= " AND tanggal_lahir <= :tanggal_lahir_max";
+            $params[':tanggal_lahir_max'] = $filters['tanggal_lahir_max'];
+        }
+
+
+        // Filter berdasarkan tempat_lahir
+        if (isset($filters['tempat_lahir']) && $filters['tempat_lahir'] !== '') {
+            $query .= " AND tempat_lahir LIKE :tempat_lahir";
+            $params[':tempat_lahir'] = '%' . $filters['tempat_lahir'] . '%';
         }
 
 

@@ -23,12 +23,12 @@ $umurRentang = $pendudukModel->getUmurStatistik();
 // Proses filter
 $filters = [];
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (isset($_GET['umur_min']) && $_GET['umur_min'] !== '') {
-        $filters['umur_min'] = $_GET['umur_min'];
+    if (isset($_GET['tanggal_lahir_min']) && $_GET['tanggal_lahir_min'] !== '') {
+        $filters['tanggal_lahir_min'] = $_GET['tanggal_lahir_min'];
     }
 
-    if (isset($_GET['umur_max']) && $_GET['umur_max'] !== '') {
-        $filters['umur_max'] = $_GET['umur_max'];
+    if (isset($_GET['tanggal_lahir_max']) && $_GET['tanggal_lahir_max'] !== '') {
+        $filters['tanggal_lahir_max'] = $_GET['tanggal_lahir_max'];
     }
 
     if (isset($_GET['pekerjaan']) && $_GET['pekerjaan'] !== '') {
@@ -88,29 +88,13 @@ ob_start(); // Start output buffering
                         <div class="card-body">
                             <form method="GET">
                                 <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label class="form-label">Umur Min</label>
-                                        <select name="umur_min" class="form-select">
-                                            <option value="">Semua</option>
-                                            <?php foreach ($umurRentang as $rentang): ?>
-                                                <option value="<?= $rentang['min'] ?>"
-                                                    <?= (isset($_GET['umur_min']) && $_GET['umur_min'] == $rentang['min']) ? 'selected' : '' ?>>
-                                                    <?= $rentang['label'] ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                <div class="col-md-4">
+                                        <label class="form-label">Tanggal Lahir Min</label>
+                                        <input type="date" name="tanggal_lahir_min" class="form-control" value="<?= isset($_GET['tanggal_lahir_min']) ? $_GET['tanggal_lahir_min'] : '' ?>">
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Umur Maks</label>
-                                        <select name="umur_max" class="form-select">
-                                            <option value="">Semua</option>
-                                            <?php foreach ($umurRentang as $rentang): ?>
-                                                <option value="<?= $rentang['max'] ?>"
-                                                    <?= (isset($_GET['umur_max']) && $_GET['umur_max'] == $rentang['max']) ? 'selected' : '' ?>>
-                                                    <?= $rentang['label'] ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <label class="form-label">Tanggal Lahir Maks</label>
+                                        <input type="date" name="tanggal_lahir_max" class="form-control" value="<?= isset($_GET['tanggal_lahir_max']) ? $_GET['tanggal_lahir_max'] : '' ?>">
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Pekerjaan</label>
@@ -165,13 +149,18 @@ ob_start(); // Start output buffering
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($pendudukList as $penduduk): ?>
+                                <?php foreach ($pendudukList as $penduduk): 
+                                     $tanggalLahir = new DateTime($penduduk['tanggal_lahir']);
+                                     $sekarang = new DateTime();
+                                     $umur = $sekarang->diff($tanggalLahir)->y;
+                                    ?>
                                     <tr>
                                         <td><?= $penduduk['id'] ?></td>
                                         <td><?= $penduduk['nama'] ?></td>
                                         <td><?= $penduduk['nik'] ?></td>
                                         <td><?= $penduduk['jenis_kelamin'] ?></td>
-                                        <td><?= $penduduk['umur'] ?></td>
+                                        <td><?= $umur ?></td>
+                                        <td><?= $penduduk['tempat_lahir'] ?></td>
                                         <td><?= $penduduk['pekerjaan'] ?></td>
                                         <td><?= $penduduk['jorong'] ?></td>
                                         <?php

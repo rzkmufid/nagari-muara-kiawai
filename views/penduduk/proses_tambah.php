@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'nama' => $_POST['nama'],
         'nik' => $_POST['nik'],
         'jenis_kelamin' => $_POST['jenis_kelamin'],
-        'umur' => $_POST['umur'],
+        'tempat_lahir' => $_POST['tempat_lahir'],
+        'tanggal_lahir' => $_POST['tanggal_lahir'],
         'pekerjaan' => $_POST['pekerjaan'],
         'jorong' => $_POST['jorong'],
     ];
@@ -38,9 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 
-    // Validasi umur
-    if (empty($data['umur']) || $data['umur'] < 0) {
-        $errors[] = "Umur harus diisi dan tidak boleh negatif.";
+    // Validasi tempat lahir
+    if (empty($data['tempat_lahir'])) {
+        $errors[] = "Tempat lahir harus diisi.";
+    }
+
+
+    // Validasi tanggal lahir
+    if (empty($data['tanggal_lahir'])) {
+        $errors[] = "Tanggal lahir harus diisi.";
     }
 
 
