@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Jan 2025 pada 04.49
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.1.25
+-- Generation Time: Feb 14, 2025 at 05:53 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `demografi`
+-- Table structure for table `demografi`
 --
 
 CREATE TABLE `demografi` (
@@ -41,7 +41,7 @@ CREATE TABLE `demografi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `history`
+-- Table structure for table `history`
 --
 
 CREATE TABLE `history` (
@@ -56,7 +56,7 @@ CREATE TABLE `history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `history`
+-- Dumping data for table `history`
 --
 
 INSERT INTO `history` (`id`, `nama`, `nik`, `jenis_kelamin`, `umur`, `pekerjaan`, `jorong`, `created_at`) VALUES
@@ -65,7 +65,7 @@ INSERT INTO `history` (`id`, `nama`, `nik`, `jenis_kelamin`, `umur`, `pekerjaan`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jorong`
+-- Table structure for table `jorong`
 --
 
 CREATE TABLE `jorong` (
@@ -80,7 +80,7 @@ CREATE TABLE `jorong` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `jorong`
+-- Dumping data for table `jorong`
 --
 
 INSERT INTO `jorong` (`id`, `nama_jorong`, `kepala_jorong`, `luas_wilayah`, `jumlah_kk`, `keterangan`, `created_at`, `updated_at`) VALUES
@@ -89,7 +89,7 @@ INSERT INTO `jorong` (`id`, `nama_jorong`, `kepala_jorong`, `luas_wilayah`, `jum
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penduduk`
+-- Table structure for table `penduduk`
 --
 
 CREATE TABLE `penduduk` (
@@ -97,23 +97,17 @@ CREATE TABLE `penduduk` (
   `nama` varchar(100) NOT NULL,
   `nik` varchar(16) NOT NULL,
   `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
-  `umur` int(11) NOT NULL,
+  `tempat_lahir` text NOT NULL,
+  `tanggal_lahir` date NOT NULL,
   `pekerjaan` varchar(50) NOT NULL,
   `jorong` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `penduduk`
---
-
-INSERT INTO `penduduk` (`id`, `nama`, `nik`, `jenis_kelamin`, `umur`, `pekerjaan`, `jorong`, `created_at`) VALUES
-(1, 'asd', '3453', 'Laki-laki', 36, 'Buruh', 'qwe', '2025-01-26 19:55:33');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sarana_prasarana`
+-- Table structure for table `sarana_prasarana`
 --
 
 CREATE TABLE `sarana_prasarana` (
@@ -126,7 +120,7 @@ CREATE TABLE `sarana_prasarana` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `sarana_prasarana`
+-- Dumping data for table `sarana_prasarana`
 --
 
 INSERT INTO `sarana_prasarana` (`id`, `jenis`, `jumlah`, `kondisi`, `keterangan`, `created_at`) VALUES
@@ -137,7 +131,7 @@ INSERT INTO `sarana_prasarana` (`id`, `jenis`, `jumlah`, `kondisi`, `keterangan`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -149,7 +143,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`, `created_at`) VALUES
@@ -165,79 +159,79 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`, `created_at`) VALUES
 --
 
 --
--- Indeks untuk tabel `demografi`
+-- Indexes for table `demografi`
 --
 ALTER TABLE `demografi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `history`
+-- Indexes for table `history`
 --
 ALTER TABLE `history`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `jorong`
+-- Indexes for table `jorong`
 --
 ALTER TABLE `jorong`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `penduduk`
+-- Indexes for table `penduduk`
 --
 ALTER TABLE `penduduk`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`);
 
 --
--- Indeks untuk tabel `sarana_prasarana`
+-- Indexes for table `sarana_prasarana`
 --
 ALTER TABLE `sarana_prasarana`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `demografi`
+-- AUTO_INCREMENT for table `demografi`
 --
 ALTER TABLE `demografi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `history`
+-- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `jorong`
+-- AUTO_INCREMENT for table `jorong`
 --
 ALTER TABLE `jorong`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `penduduk`
+-- AUTO_INCREMENT for table `penduduk`
 --
 ALTER TABLE `penduduk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `sarana_prasarana`
+-- AUTO_INCREMENT for table `sarana_prasarana`
 --
 ALTER TABLE `sarana_prasarana`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
