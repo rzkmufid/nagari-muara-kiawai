@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2025 at 05:53 AM
+-- Generation Time: Feb 26, 2025 at 01:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,7 +49,8 @@ CREATE TABLE `history` (
   `nama` varchar(100) NOT NULL,
   `nik` varchar(16) NOT NULL,
   `jenis_kelamin` varchar(100) NOT NULL,
-  `umur` int(11) NOT NULL,
+  `tempat_lahir` text NOT NULL,
+  `tanggal_lahir` date NOT NULL,
   `pekerjaan` varchar(50) NOT NULL,
   `jorong` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -59,8 +60,9 @@ CREATE TABLE `history` (
 -- Dumping data for table `history`
 --
 
-INSERT INTO `history` (`id`, `nama`, `nik`, `jenis_kelamin`, `umur`, `pekerjaan`, `jorong`, `created_at`) VALUES
-(4, 'asd', '3453', 'Laki-laki', 36, 'Petani', 'qwe', '2025-01-27 15:12:16');
+INSERT INTO `history` (`id`, `nama`, `nik`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `pekerjaan`, `jorong`, `created_at`) VALUES
+(5, 'test', '123123', 'Perempuan', 'Bukittinggi', '1995-02-01', 'PNS', 'qwe', '0000-00-00 00:00:00'),
+(6, 'test', '123123', 'Perempuan', 'Bukittinggi', '1995-02-01', 'Petani', 'qwe', '2025-02-25 23:52:35');
 
 -- --------------------------------------------------------
 
@@ -103,6 +105,15 @@ CREATE TABLE `penduduk` (
   `jorong` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `penduduk`
+--
+
+INSERT INTO `penduduk` (`id`, `nama`, `nik`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `pekerjaan`, `jorong`, `created_at`) VALUES
+(3, 'Tempor veniam hic c', '5555', 'Laki-laki', 'Et eu incididunt vol', '1975-03-03', 'Tempora maiores dolo', 'qwe', '2025-02-14 05:19:35'),
+(6, 'Est magna aut rerum ', '7922', 'Perempuan', 'Padang Panjang', '2020-06-15', 'Petani', 'qwe', '2025-02-24 14:36:37'),
+(7, 'test', '123123', 'Perempuan', 'Bukittinggi', '1995-02-01', 'PNS', 'qwe', '2025-02-24 15:41:03');
 
 -- --------------------------------------------------------
 
@@ -210,7 +221,7 @@ ALTER TABLE `demografi`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `jorong`
@@ -222,7 +233,7 @@ ALTER TABLE `jorong`
 -- AUTO_INCREMENT for table `penduduk`
 --
 ALTER TABLE `penduduk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sarana_prasarana`
