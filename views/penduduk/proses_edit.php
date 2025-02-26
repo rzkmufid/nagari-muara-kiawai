@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = intval($_GET['id']);
     
     if ($pendudukModel->update($id, $data)) {
+
         header("Location: index.php");
         exit();
     } else {

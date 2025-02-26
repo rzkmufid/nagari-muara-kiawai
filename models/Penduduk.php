@@ -64,8 +64,8 @@ class Penduduk
         // Validasi NIK unik
     
         $query = "INSERT INTO history 
-                  (nama, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, pekerjaan, jorong) 
-                  VALUES (:nama, :nik, :jenis_kelamin, :tempat_lahir, :tanggal_lahir, :pekerjaan, :jorong)";
+                  (id, nama, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, pekerjaan, jorong) 
+                  VALUES (:id, :nama, :nik, :jenis_kelamin, :tempat_lahir, :tanggal_lahir, :pekerjaan, :jorong)";
     
     
         try {
@@ -73,6 +73,7 @@ class Penduduk
     
     
             // Sanitasi data
+            $id = htmlspecialchars(strip_tags($data['id']));
             $nama = htmlspecialchars(strip_tags($data['nama']));
             $nik = htmlspecialchars(strip_tags($data['nik']));
             $jenis_kelamin = htmlspecialchars(strip_tags($data['jenis_kelamin']));
@@ -83,6 +84,7 @@ class Penduduk
     
     
             // Bind parameter
+            $stmt->bindParam(":id", $id);
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":nik", $nik);
             $stmt->bindParam(":jenis_kelamin", $jenis_kelamin);

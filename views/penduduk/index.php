@@ -134,11 +134,13 @@ ob_start(); // Start output buffering
                         <table class="table table-hover" id="dataPenduduk">
                             <thead class="table-light">
                                 <tr>
+                                    <th>No</th>
                                     <th>ID</th>
                                     <th>Nama</th>
                                     <th>NIK</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Umur</th>
+                                    <th>Tempat Lahir</th>
                                     <th>Pekerjaan</th>
                                     <th>Jorong</th>
                                     <?php
@@ -149,12 +151,16 @@ ob_start(); // Start output buffering
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($pendudukList as $penduduk): 
+                                <?php 
+                                
+                                $no = 1;
+                                foreach ($pendudukList as $penduduk): 
                                      $tanggalLahir = new DateTime($penduduk['tanggal_lahir']);
                                      $sekarang = new DateTime();
                                      $umur = $sekarang->diff($tanggalLahir)->y;
                                     ?>
                                     <tr>
+                                        <td><?= $no++ ?></td>
                                         <td><?= $penduduk['id'] ?></td>
                                         <td><?= $penduduk['nama'] ?></td>
                                         <td><?= $penduduk['nik'] ?></td>

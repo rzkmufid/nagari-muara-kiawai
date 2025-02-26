@@ -56,7 +56,13 @@
                                         <td><?= $history['nama'] ?></td>
                                         <td><?= $history['nik'] ?></td>
                                         <td><?= $history['jenis_kelamin'] ?></td>
-                                        <td><?= $history['umur'] ?></td>
+                                        <?php
+                                            $today = new DateTime();
+                                            $birthdate = new DateTime($history['tanggal_lahir']);
+                                            $interval = $today->diff($birthdate);
+                                            $umur = $interval->format('%y');
+                                        ?>
+                                        <td><?= $umur ?></td>
                                         <td><?= $history['pekerjaan'] ?></td>
                                         <td><?= $history['jorong'] ?></td>
                                         <td><?= $history['created_at'] ?></td>
